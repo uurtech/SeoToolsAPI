@@ -2,7 +2,7 @@
 
 /*
 
-biçim etiketleri
+biçim etiketleri / <strong>, <b>, <i>, <em>, <u>
 site içi bağlantı sayısı
 site dışına bağlantı sayısı
 
@@ -15,23 +15,23 @@ class HTML{
   function __construct($url){
       MetaTags($url);
   }
-  functionFunctionChecker(){
+  function FunctionChecker(){
     //<!DOCTYPE html> html5
     //<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
     return searchForAny($this->source,"<!DOCTYPE html>");
   }
 
-  functionCharsetChecker(){
+  function CharsetChecker(){
     return searchForAny($this->source,"charset");
   }
 
-  functionTitleChecker(){
+  function TitleChecker(){
     //70 chars max
     preg_match("/\<title\>(.*)\<\/title\>/i",$this->source,$title); // ignore case
     return strlen($title[1]);
   }
 
-  functionDescriptionChecker(){
+  function DescriptionChecker(){
     //160 chars max
     if(strlen($metaTags['description']) < 160){
       return true;
@@ -39,7 +39,7 @@ class HTML{
     return false;
   }
 
-  functionKeywordChecker(){
+  function KeywordChecker(){
     if(strlen($metaTags['keywords']) < 2){
       return true;
     }
@@ -57,6 +57,30 @@ class HTML{
       }
     }
     return $count;
+  }
+
+  function countFormatTags(){
+      $count = 0;
+      if(is_numeric(searchForAny("<strong>")){
+        $count += searchForAny("<strong>");
+      }
+      if(is_numeric(searchForAny("<b>")){
+        $count += searchForAny("<b>");
+
+      }
+      if(is_numeric(searchForAny("<i>")){
+        $count += searchForAny("<i>");
+
+      }
+      if(is_numeric(searchForAny("<em>")){
+        $count += searchForAny("<em>");
+
+      }
+      if(is_numeric(searchForAny("<u>")){
+        $count += searchForAny("<u>");
+
+      }
+      return $count;
   }
 
   function countImageTags(){
